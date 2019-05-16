@@ -8,8 +8,9 @@ using ProductsStore.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductsStore.Models;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using ProductsStore.Areas.Identity.Services;
+using ProductsStore.Common.EmailSender;
+using ProductsStore.Common.EmailSender.Interface;
+using ProductsStore.Common.EmailSender.Implementation;
 
 namespace ProductsStore
 {
@@ -25,6 +26,22 @@ namespace ProductsStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IEmailSender, EmailSender>(i =>
+               new EmailSender(
+                   Configuration["EmailSender:Host"],
+                   Configuration.GetValue<int>("EmailSender:Port"),
+                   Configuration.GetValue<bool>("EmailSender:EnableSSL"),
+                   Configuration["EmailSender:UserName"],
+                   Configuration["EmailSender:Password"]
+               )
+           );
+
+            services
+                 .Configure<SendGridOptions>(options =>
+                 {
+                     options.SendGridApiKey = this.Configuration.GetSection("SendGrid:ApiKey").Value;
+                 });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -54,9 +71,9 @@ namespace ProductsStore
                 .AddAuthentication();
 
             services.AddMvc(options => { options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>(); })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);                 
+            
 
-            services.AddSingleton<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
