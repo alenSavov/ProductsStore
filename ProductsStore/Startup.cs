@@ -35,6 +35,7 @@ namespace ProductsStore
                    Configuration["EmailSender:Password"]
                )
            );
+            
 
             services
                  .Configure<SendGridOptions>(options =>
@@ -60,7 +61,7 @@ namespace ProductsStore
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
 
-                options.User.RequireUniqueEmail = false;
+                options.User.RequireUniqueEmail = true;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();

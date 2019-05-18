@@ -27,9 +27,7 @@ namespace ProductsStore.Controllers
 
         public async Task<IActionResult> About()
         {
-            var result = await this.emailSender.SendEmailAsync("playmatte@abv.bg", "playmatte@abv.bg", "Sending with SendGrid is Fun", "<strong>test</strong>");
-            
-            ViewData["Message"] = result;
+           
 
             return View();
         }
