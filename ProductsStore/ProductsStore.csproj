@@ -10,11 +10,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="Sendgrid" Version="9.11.0" />
-	  <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ProductsStore.Common\ProductsStore.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Infrastructure\Colections\Interfaces\" />
+    <Folder Include="Views\Items\" />
   </ItemGroup>
 
 </Project>
