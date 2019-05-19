@@ -14,7 +14,6 @@ namespace ProductsStore.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<Bid> Bids { get; set; }
         public DbSet<Picture> Pictures { get; set; }
     }
 }
