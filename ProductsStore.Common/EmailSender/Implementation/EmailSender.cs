@@ -20,9 +20,7 @@ namespace ProductsStore.Common.EmailSender.Implementation
 
         public async Task<bool> SendEmailAsync(string sender, string receiver, string subject, string htmlMessage)
         {
-            var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_API_KEY");
-
-            var client = new SendGridClient(apiKey);
+            var client = new SendGridClient(this.options.SendGridApiKey);
 
             var from = new EmailAddress(sender);
             var to = new EmailAddress(receiver, receiver);

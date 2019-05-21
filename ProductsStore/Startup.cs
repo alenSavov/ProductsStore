@@ -11,6 +11,7 @@ using ProductsStore.Models;
 using ProductsStore.Common.EmailSender;
 using ProductsStore.Common.EmailSender.Interface;
 using ProductsStore.Common.EmailSender.Implementation;
+using ProductsStore.Infrastructure.Extensions;
 
 namespace ProductsStore
 {
@@ -19,6 +20,7 @@ namespace ProductsStore
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+           
         }
 
         public IConfiguration Configuration { get; }
@@ -98,6 +100,8 @@ namespace ProductsStore
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.SeedData();
         }
     }
 }
